@@ -22,7 +22,7 @@ body {
   --main-black: #1f1e28;
   --main-yellow: #ffe9a4;
   --form-black: #2b2a39;
-  --font-grey: #b0aebb;
+  --font-grey: rgb(176, 174, 187);
 }
 
 .App {
@@ -31,4 +31,32 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.5rem 0;
+  background-color: var(--main-yellow);
+  font-size: 2rem;
+  font-family: inherit;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 10px rgb(174, 174, 51);
+  color: var(--main-black);
+
+  transition: 0.2s linear;
+}
+
+.btn-grey {
+  background-color: var(--font-grey);
+  box-shadow: 1px 1px 10px rgb(176, 174, 187);
+}
+
+.btn:hover {
+  cursor: pointer;
+  transform: translateY(-0.3rem);
+}
+
+.btn:active {
+  transform: translate(0);
 }

@@ -1,0 +1,28 @@
+.selectContainer {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  padding: 1rem;
+  background-color: var(--main-black);
+}
+
+.selectIcon {
+  color: var(--main-yellow);
+}
+
+.formSelect {
+  width: 100%;
+
+  background-color: var(--main-black);
+  color: var(--font-grey);
+  outline: none;
+  border: none;
+  border-radius: .2rem;
+  font-size: 1.5rem;
+
+}
+
+.formSelect option {
+  outline: none;
+  border: none;
+}

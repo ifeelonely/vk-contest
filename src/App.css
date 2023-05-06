@@ -1,0 +1,34 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: var(--font-grey);
+
+  background-color: var(--main-black);
+}
+
+:root {
+  --main-black: #1f1e28;
+  --main-yellow: #ffe9a4;
+  --form-black: #2b2a39;
+  --font-grey: #b0aebb;
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

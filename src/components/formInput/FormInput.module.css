@@ -1,0 +1,13 @@
+.formInputContainer {
+  position: relative;
+  padding: 1rem;
+  color: var(--font-grey);
+  background-color: var(--main-black);
+}
+
+.formInput {
+  background-color: var(--main-black);
+  outline: none;
+  border: none;
+  color: var(--font-grey);
+}

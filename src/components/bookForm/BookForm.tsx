@@ -20,7 +20,7 @@ function BookForm(): JSX.Element {
   const formObj = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const setForm = useSetForm();
-  
+
   useEffect(() => {
     dispatch(setValid());
   }, [formObj]);
@@ -70,10 +70,7 @@ function BookForm(): JSX.Element {
         />
         <DatePicker
           value={formObj.FormReducer.date}
-          onChange={(currentValue, err) => {
-            if (!err.validationError)
-              dispatch(setDate(currentValue?.toDate().toDateString()));
-          }}
+          onChange={(currentValue) => dispatch(setDate(currentValue))}
           label="Введите дату"
           sx={defaultComponentStyles}
         />

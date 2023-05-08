@@ -11,24 +11,7 @@ import { useEffect, useState } from 'react';
 import FormTextArea from '../formTextArea/FormTextArea';
 import { SingleInputTimeRangeField } from '@mui/x-date-pickers-pro';
 import { DatePicker } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
-
-const defaultComponentStyles = {
-  width: '100%',
-  label: {
-    color: 'var(--font-grey)',
-    fontSize: '1.2rem',
-  },
-  input: {
-    color: 'var(--font-grey)',
-    fontSize: '1.2rem',
-    backgroundColor: 'var(--main-black)',
-  },
-  '& .MuiSvgIcon-root': {
-    color: 'var(--font-grey)',
-    fontSize: '2rem',
-  },
-};
+import { defaultComponentStyles } from './MaterialUIStyle';
 
 function BookForm(): JSX.Element {
   const { scrapers, floors, meetingRooms } = mockData;
@@ -37,14 +20,13 @@ function BookForm(): JSX.Element {
   const formObj = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const setForm = useSetForm();
-  console.log(formObj);
+  
   useEffect(() => {
     dispatch(setValid());
   }, [formObj]);
 
   const onSubmitHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log(formObj);
     setFirstRender(false);
     if (formObj.FormReducer.isFormValid) console.log(JSON.stringify(formObj));
   };
@@ -53,7 +35,6 @@ function BookForm(): JSX.Element {
     e.preventDefault();
     dispatch(clearForm());
     setFirstRender(true);
-    console.log(formObj);
   };
 
   return (
@@ -90,17 +71,15 @@ function BookForm(): JSX.Element {
         <DatePicker
           value={formObj.FormReducer.date}
           onChange={(currentValue, err) => {
-            if (currentValue && !err.validationError)
-              dispatch(setDate(new Date(currentValue).toString()));
+            if (!err.validationError)
+              dispatch(setDate(currentValue?.toDate().toDateString()));
           }}
           label="Введите дату"
           sx={defaultComponentStyles}
         />
         <SingleInputTimeRangeField
           value={formObj.FormReducer.time}
-          onChange={(currentValue) => {
-              dispatch(setTime(currentValue.join('&')));
-          }}
+          onChange={(currentValue) => dispatch(setTime(currentValue))}
           label="Введите время"
           sx={defaultComponentStyles}
         />

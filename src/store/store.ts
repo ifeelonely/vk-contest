@@ -1,13 +1,18 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import FormReducer from './reducers/FormSlice';
 
 const rootReducer = combineReducers({
   FormReducer,
 })
 
+const customizedMiddleware = getDefaultMiddleware({
+  serializableCheck: false
+})
+
 export const setupStore = () => {
   return configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
+    middleware: customizedMiddleware,
   })
 }
 

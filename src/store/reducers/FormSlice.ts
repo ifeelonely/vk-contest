@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Dayjs } from 'dayjs';
 interface FormState {
   towers: string;
   floor: string | number;
   meetingRoom: string | number;
-  date: Date | null | string;
-  time: [Date | null, Date | null];
+  date: Dayjs | null;
+  time: [null, null] | [Dayjs, Dayjs];
   comment: string;
   isFormValid: boolean;
 }
@@ -32,14 +33,11 @@ export const FormSlice = createSlice({
     setMeetingRoom(state, action: PayloadAction<string | number>) {
       state.meetingRoom = action.payload;
     },
-    setDate(state, action: PayloadAction<Date | null | string>) {
-      console.log(action.payload);
-      
-      state.date = action.payload; 
+    setDate(state, action) {
+      state.date = action.payload;
     },
     setTime(state, action) {
-      console.log(action.payload)
-      state.time = action.payload.split('&');
+      state.time = action.payload;
     },
     setComment(state, action: PayloadAction<string>) {
       state.comment = action.payload;

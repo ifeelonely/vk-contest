@@ -1,0 +1,19 @@
+.textAreaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+
+  font-size: 1.3rem;
+}
+
+.textArea {
+  height: 8rem;
+  padding: 1rem;
+
+  background-color: var(--main-black);
+  color: var(--font-grey);
+  outline: none;
+  border: none;
+  border-radius: .5rem;
+  resize: none;
+}

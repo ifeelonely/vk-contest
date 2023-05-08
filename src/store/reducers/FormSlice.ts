@@ -5,14 +5,18 @@ interface FormState {
   meetingRoom: string | number;
   date: string;
   time: string;
+  comment: string;
+  isFormValid: boolean;
 }
 
 const initialState: FormState = {
-  towers: '',
-  floor: '',
-  meetingRoom: '',
+  towers: 'A',
+  floor: '3',
+  meetingRoom: '1',
   date: '',
   time: '',
+  comment: '',
+  isFormValid: false,
 };
 
 export const FormSlice = createSlice({
@@ -33,6 +37,29 @@ export const FormSlice = createSlice({
     },
     setTime(state, action: PayloadAction<string>) {
       state.time = action.payload;
+    },
+    setComment(state, action: PayloadAction<string>) {
+      state.comment = action.payload;
+    },
+    setValid(state) {
+      state.isFormValid = Boolean(
+        state.date &&
+          state.floor &&
+          state.meetingRoom &&
+          state.time &&
+          state.towers &&
+          state.comment
+      );
+    },
+    clearForm(state) {
+      state.date = '';
+      state.towers = '';
+      state.floor = '';
+      state.meetingRoom = '';
+      state.date = '';
+      state.time = '';
+      state.isFormValid = false;
+      state.comment = '';
     },
   },
 });

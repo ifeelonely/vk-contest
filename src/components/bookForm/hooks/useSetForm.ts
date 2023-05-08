@@ -2,7 +2,7 @@ import { FormSlice } from '../../../store/reducers/FormSlice';
 import { useAppDispatch } from '../../../store/hooks/redux';
 
 export function useSetForm() {
-  const { setTowers, setFloor, setMeetingRoom, setDate, setTime } =
+  const { setTowers, setFloor, setMeetingRoom, setDate, setTime, setComment } =
     FormSlice.actions;
   const dispatch = useAppDispatch();
   return (type: string, value: string) => {
@@ -21,6 +21,9 @@ export function useSetForm() {
         break;
       case 'time':
         dispatch(setTime(value));
+        break;
+      case 'comment':
+        dispatch(setComment(value));
         break;
       default:
         break;

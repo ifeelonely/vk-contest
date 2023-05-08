@@ -7,26 +7,30 @@ function FormSelect({
   icon,
   setForm,
   type,
+  value,
 }: FormSelectProps) {
   return (
-    <div className={classes.selectContainer}>
-      <div className={classes.selectIcon}>{icon}</div>
-      <select
-        className={classes.formSelect}
-        defaultValue={defaultValue}
-        onChange={(e) => setForm(type, e.target.value)}
-      >
-        <option value={defaultValue} disabled>
-          {defaultValue}
-        </option>
-        {options.map((option) => {
-          return (
-            <option key={option.id} value={option.value}>
-              {option.name}
-            </option>
-          );
-        })}
-      </select>
+    <div className={classes.selectBlockContainer}>
+      <label htmlFor="" className={classes.title}>{defaultValue}</label>
+      <div className={classes.selectContainer}>
+        <div className={classes.selectIcon}>{icon}</div>
+        <select
+          className={classes.formSelect}
+          onChange={(e) => setForm(type, e.target.value)}
+          value={value}
+        >
+          <option value={defaultValue} disabled>
+            {defaultValue}
+          </option>
+          {options.map((option) => {
+            return (
+              <option key={option.id} value={option.value}>
+                {option.name}
+              </option>
+            );
+          })}
+        </select>
+      </div>
     </div>
   );
 }

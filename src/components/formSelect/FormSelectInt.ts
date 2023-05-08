@@ -4,6 +4,7 @@ export default interface FormSelectProps {
   icon: React.ReactNode;
   setForm: (type: string, value: string) => void;
   type: string;
+  value: string | number;
 }
 
 export interface optionObj {

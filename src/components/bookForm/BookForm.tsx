@@ -6,20 +6,42 @@ import { SiLevelsdotfyi } from 'react-icons/si';
 import { mockData } from '../../mockData/SelectData';
 import FormTimeorDate from '../formTimeorDate/FormTimeorDate';
 import { useSetForm } from './hooks/useSetForm';
-import { useAppSelector } from '../../store/hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
+import { FormSlice } from '../../store/reducers/FormSlice';
+import { useEffect, useState } from 'react';
+import FormTextArea from '../formTextArea/FormTextArea';
 
 function BookForm(): JSX.Element {
   const { scrapers, floors, meetingRooms } = mockData;
+  const { setValid, clearForm } = FormSlice.actions;
+  const [firstRender, setFirstRender] = useState<boolean>(true);
   const formObj = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
   const setForm = useSetForm();
+
+  useEffect(() => {
+    dispatch(setValid());
+    console.log('jopa');
+  }, [formObj]);
 
   const onSubmitHandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log(JSON.stringify(formObj));
+    setFirstRender(false);
+    if (formObj.FormReducer.isFormValid) console.log(JSON.stringify(formObj));
+  };
+
+  const onClearHandler = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch(clearForm());
+    setFirstRender(true);
+    console.log(formObj);
   };
 
   return (
     <div className={classes.bookForm}>
+      {!formObj.FormReducer.isFormValid && !firstRender ? (
+        <h1 style={{ color: 'red' }}>Заполните все поля формы!</h1>
+      ) : null}
       <h1>Бронированиe комнаты</h1>
       <form className={classes.bookFormInner}>
         <FormSelect
@@ -28,6 +50,7 @@ function BookForm(): JSX.Element {
           defaultValue="Выберите башню"
           setForm={setForm}
           type="tower"
+          value={formObj.FormReducer.towers}
         />
         <FormSelect
           options={floors}
@@ -35,6 +58,7 @@ function BookForm(): JSX.Element {
           defaultValue="Выберите этаж"
           setForm={setForm}
           type="floor"
+          value={formObj.FormReducer.floor}
         />
         <FormSelect
           options={meetingRooms}
@@ -42,6 +66,7 @@ function BookForm(): JSX.Element {
           defaultValue="Выберите комнату"
           setForm={setForm}
           type="room"
+          value={formObj.FormReducer.meetingRoom}
         />
         <FormTimeorDate
           labelText="Выберите дату"
@@ -53,11 +78,21 @@ function BookForm(): JSX.Element {
           setForm={setForm}
           type="time"
         />
+
+        <FormTextArea
+          type="comment"
+          label="Ваш комментарий"
+          setForm={setForm}
+          value={formObj.FormReducer.comment}
+        />
+
         <div className={classes.btnContainer}>
           <button className="btn" onClick={(e) => onSubmitHandler(e)}>
             Отправить
           </button>
-          <button className="btn btn-grey">Очистить</button>
+          <button className="btn btn-grey" onClick={(e) => onClearHandler(e)}>
+            Очистить
+          </button>
         </div>
       </form>
     </div>

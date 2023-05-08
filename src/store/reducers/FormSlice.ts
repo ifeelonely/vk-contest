@@ -3,8 +3,8 @@ interface FormState {
   towers: string;
   floor: string | number;
   meetingRoom: string | number;
-  date: string;
-  time: string;
+  date: Date | null | string;
+  time: [Date | null, Date | null];
   comment: string;
   isFormValid: boolean;
 }
@@ -13,8 +13,8 @@ const initialState: FormState = {
   towers: 'A',
   floor: '3',
   meetingRoom: '1',
-  date: '',
-  time: '',
+  date: null,
+  time: [null, null],
   comment: '',
   isFormValid: false,
 };
@@ -32,11 +32,14 @@ export const FormSlice = createSlice({
     setMeetingRoom(state, action: PayloadAction<string | number>) {
       state.meetingRoom = action.payload;
     },
-    setDate(state, action: PayloadAction<string>) {
-      state.date = action.payload;
+    setDate(state, action: PayloadAction<Date | null | string>) {
+      console.log(action.payload);
+      
+      state.date = action.payload; 
     },
-    setTime(state, action: PayloadAction<string>) {
-      state.time = action.payload;
+    setTime(state, action) {
+      console.log(action.payload)
+      state.time = action.payload.split('&');
     },
     setComment(state, action: PayloadAction<string>) {
       state.comment = action.payload;
@@ -52,12 +55,11 @@ export const FormSlice = createSlice({
       );
     },
     clearForm(state) {
-      state.date = '';
+      state.date = null;
       state.towers = '';
       state.floor = '';
       state.meetingRoom = '';
-      state.date = '';
-      state.time = '';
+      state.time = [null, null];
       state.isFormValid = false;
       state.comment = '';
     },

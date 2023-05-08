@@ -5,7 +5,8 @@
   gap: 1rem;
   margin: 1rem;
 
-  min-width: 10rem;
+  width: 100%;
+  max-width: 50rem;
   padding: 1.5rem 1rem;
 
   background-color: var(--form-black);

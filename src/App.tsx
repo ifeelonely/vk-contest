@@ -1,15 +1,15 @@
 import BookForm from './components/bookForm/BookForm';
 import './App.css';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 function App() {
   return (
-    <div className="App">
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <div className="App">
         <BookForm />
-      </LocalizationProvider>
-    </div>
+      </div>
+    </LocalizationProvider>
   );
 }
 

@@ -4,28 +4,47 @@ import { TbBuildingSkyscraper } from 'react-icons/tb';
 import { MdOutlineMeetingRoom } from 'react-icons/md';
 import { SiLevelsdotfyi } from 'react-icons/si';
 import { mockData } from '../../mockData/SelectData';
-import FormTimeorDate from '../formTimeorDate/FormTimeorDate';
 import { useSetForm } from './hooks/useSetForm';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { FormSlice } from '../../store/reducers/FormSlice';
 import { useEffect, useState } from 'react';
 import FormTextArea from '../formTextArea/FormTextArea';
+import { SingleInputTimeRangeField } from '@mui/x-date-pickers-pro';
+import { DatePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
+
+const defaultComponentStyles = {
+  width: '100%',
+  label: {
+    color: 'var(--font-grey)',
+    fontSize: '1.2rem',
+  },
+  input: {
+    color: 'var(--font-grey)',
+    fontSize: '1.2rem',
+    backgroundColor: 'var(--main-black)',
+  },
+  '& .MuiSvgIcon-root': {
+    color: 'var(--font-grey)',
+    fontSize: '2rem',
+  },
+};
 
 function BookForm(): JSX.Element {
   const { scrapers, floors, meetingRooms } = mockData;
-  const { setValid, clearForm } = FormSlice.actions;
+  const { setValid, clearForm, setDate, setTime } = FormSlice.actions;
   const [firstRender, setFirstRender] = useState<boolean>(true);
   const formObj = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const setForm = useSetForm();
-
+  console.log(formObj);
   useEffect(() => {
     dispatch(setValid());
-    console.log('jopa');
   }, [formObj]);
 
   const onSubmitHandler = (e: React.MouseEvent) => {
     e.preventDefault();
+    console.log(formObj);
     setFirstRender(false);
     if (formObj.FormReducer.isFormValid) console.log(JSON.stringify(formObj));
   };
@@ -68,17 +87,23 @@ function BookForm(): JSX.Element {
           type="room"
           value={formObj.FormReducer.meetingRoom}
         />
-        <FormTimeorDate
-          labelText="Выберите дату"
-          setForm={setForm}
-          type="date"
+        <DatePicker
+          value={formObj.FormReducer.date}
+          onChange={(currentValue, err) => {
+            if (currentValue && !err.validationError)
+              dispatch(setDate(new Date(currentValue).toString()));
+          }}
+          label="Введите дату"
+          sx={defaultComponentStyles}
         />
-        <FormTimeorDate
-          labelText="Выберите время"
-          setForm={setForm}
-          type="time"
+        <SingleInputTimeRangeField
+          value={formObj.FormReducer.time}
+          onChange={(currentValue) => {
+              dispatch(setTime(currentValue.join('&')));
+          }}
+          label="Введите время"
+          sx={defaultComponentStyles}
         />
-
         <FormTextArea
           type="comment"
           label="Ваш комментарий"

@@ -9,13 +9,13 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
 import { FormSlice } from '../../store/reducers/FormSlice';
 import { useEffect, useState } from 'react';
 import FormTextArea from '../formTextArea/FormTextArea';
-import { SingleInputTimeRangeField } from '@mui/x-date-pickers-pro';
-import { DatePicker } from '@mui/x-date-pickers';
+import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import { defaultComponentStyles } from './MaterialUIStyle';
 
 function BookForm(): JSX.Element {
   const { scrapers, floors, meetingRooms } = mockData;
-  const { setValid, clearForm, setDate, setTime } = FormSlice.actions;
+  const { setValid, clearForm, setDate, setLeftTime, setRightTime } =
+    FormSlice.actions;
   const [firstRender, setFirstRender] = useState<boolean>(true);
   const formObj = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
@@ -74,12 +74,21 @@ function BookForm(): JSX.Element {
           label="Введите дату"
           sx={defaultComponentStyles}
         />
-        <SingleInputTimeRangeField
-          value={formObj.FormReducer.time}
-          onChange={(currentValue) => dispatch(setTime(currentValue))}
-          label="Введите время"
-          sx={defaultComponentStyles}
-        />
+        <div className={classes.timeContainer}>
+          <TimePicker
+            value={formObj.FormReducer.leftTime}
+            onChange={(currentValue) => dispatch(setLeftTime(currentValue))}
+            label="Начало"
+            sx={defaultComponentStyles}
+          />
+          <TimePicker
+            value={formObj.FormReducer.rightTime}
+            onChange={(currentValue) => dispatch(setRightTime(currentValue))}
+            label="Конец"
+            sx={defaultComponentStyles}
+          />
+        </div>
+
         <FormTextArea
           type="comment"
           label="Ваш комментарий"

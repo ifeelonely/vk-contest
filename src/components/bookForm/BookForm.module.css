@@ -26,3 +26,9 @@
   align-items: center;
   gap: .5rem;
 }
+
+.timeContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}

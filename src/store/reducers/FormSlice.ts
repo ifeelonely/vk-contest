@@ -5,7 +5,8 @@ interface FormState {
   floor: string | number;
   meetingRoom: string | number;
   date: Dayjs | null;
-  time: [null, null] | [Dayjs, Dayjs];
+  leftTime: null | Date | string;
+  rightTime: null | Date | string;
   comment: string;
   isFormValid: boolean;
 }
@@ -15,7 +16,8 @@ const initialState: FormState = {
   floor: '3',
   meetingRoom: '1',
   date: null,
-  time: [null, null],
+  leftTime: null,
+  rightTime: null,
   comment: '',
   isFormValid: false,
 };
@@ -34,28 +36,24 @@ export const FormSlice = createSlice({
       state.meetingRoom = action.payload;
     },
     setDate(state, action) {
-      state.date = action.payload;
+      state.date = action.payload.toDate().toString();
     },
-    setTime(state, action) {
-      state.time = action.payload;
+    setLeftTime(state, action) {
+      state.leftTime = action.payload.toDate().toString();
+    },
+    setRightTime(state, action) {
+      state.rightTime = action.payload.toDate().toString();
     },
     setComment(state, action: PayloadAction<string>) {
       state.comment = action.payload;
     },
     setValid(state) {
-      const tempDate = state.date?.toDate().toString() === 'Invalid Date';
-      const tempTime =
-        state.time[0]?.toDate().toString() === 'Invalid Date' &&
-        state.time[1]?.toDate().toString() === 'Invalid Date';
-
       state.isFormValid = Boolean(
-        !tempDate &&
-          state.floor &&
+        state.floor &&
+          state.leftTime &&
+          state.rightTime &&
           state.date &&
-          state.time[0] &&
-          state.time[1] &&
           state.meetingRoom &&
-          !tempTime &&
           state.towers &&
           state.comment
       );
@@ -65,7 +63,8 @@ export const FormSlice = createSlice({
       state.towers = 'A';
       state.floor = '3';
       state.meetingRoom = '1';
-      state.time = [null, null];
+      state.leftTime = null;
+      state.rightTime = null;
       state.isFormValid = false;
       state.comment = '';
     },

@@ -43,20 +43,28 @@ export const FormSlice = createSlice({
       state.comment = action.payload;
     },
     setValid(state) {
+      const tempDate = state.date?.toDate().toString() === 'Invalid Date';
+      const tempTime =
+        state.time[0]?.toDate().toString() === 'Invalid Date' &&
+        state.time[1]?.toDate().toString() === 'Invalid Date';
+
       state.isFormValid = Boolean(
-        state.date &&
+        !tempDate &&
           state.floor &&
+          state.date &&
+          state.time[0] &&
+          state.time[1] &&
           state.meetingRoom &&
-          state.time &&
+          !tempTime &&
           state.towers &&
           state.comment
       );
     },
     clearForm(state) {
       state.date = null;
-      state.towers = '';
-      state.floor = '';
-      state.meetingRoom = '';
+      state.towers = 'A';
+      state.floor = '3';
+      state.meetingRoom = '1';
       state.time = [null, null];
       state.isFormValid = false;
       state.comment = '';

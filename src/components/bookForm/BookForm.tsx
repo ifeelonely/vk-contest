@@ -40,7 +40,6 @@ function BookForm(): JSX.Element {
   const onClearHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(clearForm());
-    console.log(formObj);
     setFirstRender(true);
   };
 

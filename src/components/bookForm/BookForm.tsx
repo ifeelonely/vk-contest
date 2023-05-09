@@ -28,12 +28,19 @@ function BookForm(): JSX.Element {
   const onSubmitHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     setFirstRender(false);
-    if (formObj.FormReducer.isFormValid) console.log(JSON.stringify(formObj));
+    if (
+      formObj.FormReducer.isFormValid &&
+      formObj.FormReducer.date!.toString() != 'Invalid Date' &&
+      formObj.FormReducer.rightTime!.toString() != 'Invalid Date' &&
+      formObj.FormReducer.leftTime!.toString() != 'Invalid Date'
+    )
+      console.log(JSON.stringify(formObj));
   };
 
   const onClearHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(clearForm());
+    console.log(formObj);
     setFirstRender(true);
   };
 

@@ -33,6 +33,10 @@
   border: none;
 }
 
+.formSelect:hover {
+  cursor: pointer;
+}
+
 .title {
   font-size: 1.2rem;
 }
